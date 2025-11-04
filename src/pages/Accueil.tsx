@@ -30,21 +30,7 @@ export default function Accueil() {
           >
             Explorer les analyses
           </Link>
-          <Link
-            to="/mentions-legales"
-            style={{
-              backgroundColor: 'transparent',
-              color: '#111',
-              border: '1px solid #ddd',
-              padding: '0.85rem 1.25rem',
-              borderRadius: 8,
-              textDecoration: 'none',
-              fontWeight: 600,
-            }}
-          >
-            Mentions légales
-          </Link>
-        </div>
+                </div>
       </section>
 
       <section aria-label="Points forts" style={{ padding: '3rem 1.5rem', maxWidth: 1200, margin: '0 auto' }}>
@@ -57,7 +43,7 @@ export default function Accueil() {
         >
           <FeatureCard title="Tendances annuelles" description="Nombre de tournages par année pour repérer les pics d’activité." />
           <FeatureCard title="Types de tournage" description="Long métrage, Série TV, Téléfilm… suivez l’évolution par type." />
-          <FeatureCard title="Carte des arrondissements" description="Répartition des tournages par arrondissement parisien." />
+          <FeatureCard title="Graph des arrondissements" description="Répartition des tournages par arrondissement parisien." />
           <FeatureCard title="Top réalisateurs" description="Classement des réalisateurs les plus présents à Paris." />
         </div>
       </section>

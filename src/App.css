@@ -5,6 +5,17 @@
   padding: 0 1rem 2rem;
 }
 
+/* Sticky footer layout */
+.App {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;

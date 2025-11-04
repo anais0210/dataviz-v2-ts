@@ -1,7 +1,6 @@
 export default function MentionsLegales() {
   return (
     <section style={{ textAlign: 'left', maxWidth: 900, margin: '0 auto', padding: '1rem' }}>
-      <h2>Mentions légales</h2>
 
       <h3>Éditeur du site</h3>
       <p>
