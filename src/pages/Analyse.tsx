@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useParisShoots } from '../api/parisData'
 import ChartTitle from '../components/ChartTitle'
 import BarChartGenre from '../components/BarChartGenre'
@@ -8,6 +8,22 @@ import DataTableAccessible from '../components/DataTableAccessible'
 
 export default function Analyse() {
   const { data: shoots, isLoading: shootsLoading, isError: shootsError, error: shootsErr } = useParisShoots(500)
+
+  const availableYears = useMemo(() => {
+    const set = new Set<number>()
+    for (const s of shoots ?? []) {
+      if (typeof s.year === 'number' && Number.isFinite(s.year) && s.year > 0) set.add(s.year)
+    }
+    return Array.from(set).sort((a, b) => a - b)
+  }, [shoots])
+
+  const [selectedYear, setSelectedYear] = useState<number | null>(null)
+
+  useEffect(() => {
+    if (availableYears.length > 0 && (selectedYear === null || !availableYears.includes(selectedYear))) {
+      setSelectedYear(availableYears[availableYears.length - 1])
+    }
+  }, [availableYears, selectedYear])
 
   const shootsByYear: YearDatum[] = useMemo(() => {
     const acc = new Map<number, number>()
@@ -61,6 +77,28 @@ export default function Analyse() {
       .sort((a, b) => b.entries - a.entries)
       .slice(0, 10)
   }, [shoots])
+
+  const shootsTopDirectorsByYear: { genre: string; entries: number }[] = useMemo(() => {
+    if (!shoots || !selectedYear) return []
+    const acc = new Map<string, number>()
+    const splitAndCount = (raw?: string) => {
+      if (!raw) return
+      const parts = String(raw)
+        .split(/[,;]|\s-\s/)
+        .map((p) => p.trim())
+        .filter(Boolean)
+      for (const name of parts) {
+        acc.set(name, (acc.get(name) ?? 0) + 1)
+      }
+    }
+    for (const s of shoots) {
+      if (s.year === selectedYear) splitAndCount(s.director)
+    }
+    return Array.from(acc.entries())
+      .map(([genre, entries]) => ({ genre, entries }))
+      .sort((a, b) => b.entries - a.entries)
+      .slice(0, 10)
+  }, [shoots, selectedYear])
 
   const stackedTypesData: Array<Record<string, number>> & { [i: number]: { year: number } } = useMemo(() => {
     if (!shoots || shoots.length === 0) return [] as any
@@ -143,6 +181,27 @@ export default function Analyse() {
             <div className="card-panel">
               <ChartTitle>Top réalisateurs</ChartTitle>
               <BarChartGenre data={shootsTopDirectors} />
+            </div>
+
+            <div className="card-panel">
+              <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: '0.75rem' }}>
+                <ChartTitle>Top réalisateur·ices par année</ChartTitle>
+                <label style={{ marginLeft: 'auto', fontSize: 14 }}>
+                  Année
+                  <select
+                    value={selectedYear ?? ''}
+                    onChange={(e) => setSelectedYear(Number(e.target.value) || null)}
+                    style={{ marginLeft: 8, padding: '0.25rem 0.5rem', borderRadius: 6, border: '1px solid #ddd' }}
+                  >
+                    {availableYears.map((y) => (
+                      <option key={y} value={y}>
+                        {y}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+              </div>
+              <BarChartGenre data={shootsTopDirectorsByYear} />
             </div>
           </div>
         </>
