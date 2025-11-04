@@ -4,7 +4,6 @@ import ChartTitle from '../components/ChartTitle'
 import BarChartGenre from '../components/BarChartGenre'
 import LineChartYears, { type YearDatum } from '../components/LineChartYears'
 import StackedAreaTypes from '../components/StackedAreaTypes'
-import DataTableAccessible from '../components/DataTableAccessible'
 
 export default function Analyse() {
   const { data: shoots, isLoading: shootsLoading, isError: shootsError, error: shootsErr } = useParisShoots(500)
