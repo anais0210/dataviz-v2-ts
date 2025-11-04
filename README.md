@@ -4,15 +4,15 @@ Application de datavisualisation pour explorer l’activité cinématographique 
 
 ### Fonctionnalités
 
-- Accueil, Analyse, Présentation (routing inclus)
-- Analyse (sans dataset films configuré):
+- Pages: Accueil, Analyse, Mentions légales (routing inclus)
+- Analyse:
   - Nombre de tournages par année (ligne)
   - Types × Année (aire empilée, top 5 types + "Autres")
   - Répartition par type de tournage (barres)
   - Tournages par arrondissement (barres triées)
   - Top réalisateurs (barres, top 10)
-  - Tableau accessible (caption + header) des tournages
- 
+  - Top réalisateur·ices par année (sélecteur d’année + barres)
+
 
 ### Stack
 
@@ -59,7 +59,6 @@ npm run preview
 ```text
 src/
   api/
-    cnc.ts            # Films (Opendatasoft v2.1, optionnel)
     parisData.ts      # Lieux de tournage (Paris Data v2.1)
   components/
     ChartTitle.tsx
@@ -67,19 +66,14 @@ src/
     LineChartYears.tsx
     StackedAreaTypes.tsx
     DataTableAccessible.tsx
-  features/
-    Films/
-    LieuxTournage/
-    Compare/
   pages/
     Accueil.tsx
     Analyse.tsx
-    Presentation.tsx
+    MentionsLegales.tsx
   store/
     filters.ts
   utils/
     a11y.ts
-    joinData.ts
 ```
 
 ### Bonnes pratiques (accessibilité & sobriété)
