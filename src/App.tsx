@@ -7,19 +7,30 @@ import Presentation from './pages/Presentation'
 function App() {
   return (
     <div className="App">
-      <header>
-        <nav aria-label="Navigation principale">
+      <header className="site-header">
+        <nav aria-label="Navigation principale" className="main-nav">
           <ul className="menu">
             <li>
-              <NavLink to="/" end>
+              <NavLink
+                to="/"
+                end
+                className={({ isActive }) => (isActive ? 'menu-link active' : 'menu-link')}
+              >
                 Accueil
               </NavLink>
             </li>
             <li>
-              <NavLink to="/analyse">Analyse</NavLink>
+              <NavLink to="/analyse" className={({ isActive }) => (isActive ? 'menu-link active' : 'menu-link')}>
+                Analyse
+              </NavLink>
             </li>
             <li>
-              <NavLink to="/presentation">Présentation</NavLink>
+              <NavLink
+                to="/presentation"
+                className={({ isActive }) => (isActive ? 'menu-link active' : 'menu-link')}
+              >
+                Présentation
+              </NavLink>
             </li>
           </ul>
         </nav>
