@@ -2,7 +2,6 @@ import './App.css'
 import { NavLink, Route, Routes } from 'react-router-dom'
 import Accueil from './pages/Accueil'
 import Analyse from './pages/Analyse'
-import Presentation from './pages/Presentation'
 import MentionsLegales from './pages/MentionsLegales'
 
 function App() {
@@ -25,14 +24,7 @@ function App() {
                 Analyse
               </NavLink>
             </li>
-            <li>
-              <NavLink
-                to="/presentation"
-                className={({ isActive }) => (isActive ? 'menu-link active' : 'menu-link')}
-              >
-                Présentation
-              </NavLink>
-            </li>
+            
           </ul>
         </nav>
       </header>
@@ -40,7 +32,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Accueil />} />
           <Route path="/analyse" element={<Analyse />} />
-          <Route path="/presentation" element={<Presentation />} />
+          
           <Route path="/mentions-legales" element={<MentionsLegales />} />
         </Routes>
       </main>

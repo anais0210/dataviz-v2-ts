@@ -31,7 +31,7 @@ export default function Accueil() {
             Explorer les analyses
           </Link>
           <Link
-            to="/presentation"
+            to="/mentions-legales"
             style={{
               backgroundColor: 'transparent',
               color: '#111',
@@ -42,7 +42,7 @@ export default function Accueil() {
               fontWeight: 600,
             }}
           >
-            En savoir plus
+            Mentions légales
           </Link>
         </div>
       </section>
