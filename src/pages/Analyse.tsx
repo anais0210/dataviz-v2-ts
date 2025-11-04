@@ -90,11 +90,12 @@ export default function Analyse() {
   }, [shoots])
 
   return (
-    <section>
-      <ChartTitle>Tournages à Paris (échantillon)</ChartTitle>
-      {shootsLoading && <p>Chargement…</p>}
+    <section className="page page-analyse">
+      <h2 className="section-title">Analyse des tournages à Paris</h2>
+
+      {shootsLoading && <p className="status">Chargement…</p>}
       {(shootsError || !shoots) && (
-        <>
+        <div className="status error">
           <p>Impossible de charger les tournages.</p>
           {shootsErr && (
             <details>
@@ -102,46 +103,48 @@ export default function Analyse() {
               <pre>{String((shootsErr as Error).message)}</pre>
             </details>
           )}
-        </>
+        </div>
       )}
+
       {shoots && (
         <>
-          <ChartTitle>Nombre de tournages par année</ChartTitle>
-          <LineChartYears data={shootsByYear} />
+          <div className="cards-grid">
+            <div className="card-panel">
+              <ChartTitle>Nombre de tournages par année</ChartTitle>
+              <LineChartYears data={shootsByYear} />
+            </div>
 
-          <ChartTitle>Types × Année (empilé)</ChartTitle>
-          <StackedAreaTypes
-            data={stackedTypesData}
-            seriesKeys={(() => {
-              const keys = new Set<string>()
-              for (const row of stackedTypesData) {
-                Object.keys(row)
-                  .filter((k) => k !== 'year')
-                  .forEach((k) => keys.add(k))
-              }
-              return Array.from(keys)
-            })()}
-          />
+            <div className="card-panel">
+              <ChartTitle>Types × Année (empilé)</ChartTitle>
+              <StackedAreaTypes
+                data={stackedTypesData}
+                seriesKeys={(() => {
+                  const keys = new Set<string>()
+                  for (const row of stackedTypesData) {
+                    Object.keys(row)
+                      .filter((k) => k !== 'year')
+                      .forEach((k) => keys.add(k))
+                  }
+                  return Array.from(keys)
+                })()}
+              />
+            </div>
 
-          <ChartTitle>Répartition par type de tournage</ChartTitle>
-          <BarChartGenre data={shootsByType} />
+            <div className="card-panel">
+              <ChartTitle>Répartition par type de tournage</ChartTitle>
+              <BarChartGenre data={shootsByType} />
+            </div>
 
-          <ChartTitle>Tournages par arrondissement</ChartTitle>
-          <BarChartGenre data={shootsByArrdt} />
+            <div className="card-panel">
+              <ChartTitle>Tournages par arrondissement</ChartTitle>
+              <BarChartGenre data={shootsByArrdt} />
+            </div>
 
-          <ChartTitle>Top réalisateurs</ChartTitle>
-          <BarChartGenre data={shootsTopDirectors} />
-
-          <DataTableAccessible
-            caption="Lieux de tournage à Paris"
-            columns={[
-              { key: 'title', header: 'Titre' },
-              { key: 'director', header: 'Réalisateur' },
-              { key: 'type', header: 'Type' },
-              { key: 'year', header: 'Année' },
-            ]}
-            rows={shoots.slice(0, 20) as any}
-          />
+            <div className="card-panel">
+              <ChartTitle>Top réalisateurs</ChartTitle>
+              <BarChartGenre data={shootsTopDirectors} />
+            </div>
+          </div>
         </>
       )}
     </section>

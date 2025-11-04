@@ -133,3 +133,49 @@ main {
   color: #555;
   margin: 0;
 }
+
+/* Analyse page layout */
+.page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem;
+}
+
+.section-title {
+  margin: 0 0 1rem;
+  font-size: 1.5rem;
+  text-align: left;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 900px) {
+  .cards-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.card-panel {
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+  text-align: left;
+}
+
+.status {
+  text-align: left;
+  color: #333;
+}
+
+.status.error {
+  border: 1px solid #f3d2d2;
+  background: #fff5f5;
+  border-radius: 8px;
+  padding: 0.75rem;
+}
